@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Frontend Mentor | Results summary component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="desktop--class">
+      <div class="result--container">
+        <span style="margin-bottom:15px; color:#ffffff96; font-weight:600;">Your Result</span>
+        <div class="circle--container">
+          <h1 style="margin:0; font-size:3.2rem;">76</h1>
+          <p style="margin:0;">of 100</p>
+        </div>
+        <h2>Great</h2>
+        <p>You scored higher than 65% of the people who have taken these tests.</p>
+      </div>
+      <div class="sum--container">
+        <h3 style="margin-left:-12px;">Summary</h3>
+        <div class="sum--class">
+          <div class="badge">
+            <img src="./assets/images/icon-reaction.svg"></img>
+            <p>Reaction</p>
+          </div>
+          <p>89<span style="color:#393b4c91"> / 100</span></p>
+        </div>
+        <div class="sum--class">
+          <div class="badge">
+            <img src="./assets/images/icon-memory.svg"></img>
+            <p>Memory</p>
+          </div>
+          <p>92<span style="color:#393b4c91"> / 100</span></p>
+        </div>
+        <div class="sum--class">
+          <div class="badge">
+            <img src="./assets/images/icon-verbal.svg"></img>
+            <p>Verbal</p>
+          </div>
+          <p>61<span style="color:#393b4c91"> / 100</span></p>
+        </div>
+        <div class="sum--class">
+          <div class="badge">
+            <img src=""></img>
+            <p></p>
+          </div>
+          <p>72<span style="color:#393b4c91"> / 100</span></p>
+
+
+        </div>
+        <button>
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    let newData = [];
+
+    function loadData(data) {
+      newData = data;
+    }
+
+    function setIcons(data) {
+      let icons = document.querySelectorAll('.badge img');
+      let category = document.querySelectorAll('.badge p');
+      let score = document.querySelectorAll('.sum--class p');
+      let scoreIndex = 0;
+      icons.forEach((img, index) => {
+        img.setAttribute('src', data[index].icon);
+        category[index].innerHTML = data[index].category;
+        /* if (index === 1 || index === 3 || index === 5 || index === 7) {
+          score[index].innerHTML = data[scoreIndex].score;
+          scoreIndex++;
+        } */
+
+      });
+    }
+
+    async function getData() {
+      fetch("data.json").then(function (response) {
+        return response.json();
+      }).then(await function (data) {
+        loadData(data);
+        setIcons(data);
+      }).catch(function (error) {
+        console.log("error:" + error);
+      });
+    }
+
+
+
+    getData();
+  </script>
+</body>
+
+</html>
